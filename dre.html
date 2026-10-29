@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#f7eff8">
+  <title>Kaushini University | Learn, Grow, Bloom</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #302641;
+      --muted: #766b83;
+      --lavender: #eee6fa;
+      --lavender-deep: #78609f;
+      --pink: #f8eaf1;
+      --pink-deep: #b77e9a;
+      --sage: #e8eee7;
+      --cream: #fcf9ff;
+      --white: #fffefe;
+      --line: #e8def1;
+      --gold: #c4a66a;
+      --shadow: 0 18px 48px rgba(58, 39, 79, .11);
+      --radius: 22px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+    html { width: 100%; overflow-x: clip; }
+    body { width: 100%; max-width: 100%; overflow-x: clip;
+      font-family: "DM Sans", Arial, sans-serif;
+      line-height: 1.7;
+      color: var(--ink);
+      background: var(--white);
+    }
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+    section { width: 100%; max-width: 100%; padding: 82px 7%; scroll-margin-top: 88px; }
+
+    header {
+      background: rgba(255, 254, 255, .94);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(232, 222, 241, .95);
+      padding: 16px 7%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      color: var(--lavender-deep);
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -.5px;
+      white-space: nowrap;
+    }
+    .logo span { color: var(--pink-deep); }
+    nav { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      padding: 8px 11px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 600;
+      transition: background .2s ease, color .2s ease;
+    }
+    nav a:hover, nav a:focus-visible { color: var(--lavender-deep); background: var(--lavender); }
+
+    .hero {
+      min-height: 590px;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 90px 20px;
+      color: white;
+      background:
+        linear-gradient(135deg, rgba(54, 43, 74, .72), rgba(111, 80, 119, .46)),
+        url("https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1600&q=80") center/cover;
+      position: relative;
+      isolation: isolate;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border: 1px solid rgba(255,255,255,.42);
+      border-radius: 28px;
+      pointer-events: none;
+    }
+    .hero-content { max-width: 850px; }
+    .eyebrow {
+      display: inline-block;
+      padding: 7px 15px;
+      margin-bottom: 20px;
+      border: 1px solid rgba(255,255,255,.48);
+      border-radius: 999px;
+      background: rgba(255,255,255,.14);
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+    }
+    h1, h2, h3 { line-height: 1.25; }
+    .hero h1 {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(38px, 6vw, 66px);
+      margin-bottom: 18px;
+      text-wrap: balance;
+    }
+    .hero p { font-size: clamp(16px, 2vw, 20px); margin: 0 auto 30px; max-width: 650px; color: #fffafc; }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #eee6fa, #f8eaf1);
+      color: #46345f;
+      padding: 12px 23px;
+      border-radius: 999px;
+      text-decoration: none;
+      font: inherit;
+      font-weight: 700;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+      margin: 4px;
+    }
+    .btn:hover { transform: translateY(-3px); box-shadow: 0 9px 22px rgba(39, 27, 52, .15); background: #f6e8f5; }
+    .btn-light { background: rgba(255,255,255,.15); border-color: rgba(255,255,255,.65); color: white; }
+    .btn-light:hover { background: rgba(255,255,255,.28); }
+
+    .section-title {
+      text-align: center;
+      color: var(--ink);
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(29px, 4vw, 40px);
+      margin-bottom: 13px;
+    }
+    .section-title::after {
+      content: "";
+      display: block;
+      width: 58px;
+      height: 4px;
+      margin: 14px auto 0;
+      border-radius: 99px;
+      background: linear-gradient(90deg, var(--gold), var(--lavender-deep), var(--pink-deep));
+    }
+    .section-intro { text-align: center; max-width: 700px; margin: 0 auto 40px; color: var(--muted); }
+
+    #about { background: var(--cream); }
+    .about { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 54px; align-items: center; width: 100%; }
+    .about > div { min-width: 0; }
+    .about img { display: block; width: 100%; max-width: 100%; height: 320px; object-fit: cover; border-radius: var(--radius); box-shadow: var(--shadow); background: var(--lavender); }
+    .about h2 { color: var(--ink); font: 700 clamp(29px, 4vw, 40px)/1.25 "Playfair Display", Georgia, serif; margin-bottom: 20px; overflow-wrap: anywhere; }
+    .about p { color: var(--muted); margin-bottom: 16px; }
+    .about .btn { margin: 8px 0 0; }
+
+    .stats {
+      background: linear-gradient(135deg, #e9def7, #f7eaf3 58%, #eee7f7);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      text-align: center;
+      padding-top: 45px;
+      padding-bottom: 45px;
+    }
+    .stat { padding: 20px 12px; }
+    .stat h3 { color: var(--lavender-deep); font: 700 clamp(27px, 3vw, 36px) "Playfair Display", Georgia, serif; margin-bottom: 5px; }
+    .stat p { color: #655b70; font-weight: 600; }
+
+    .course-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 25px; }
+    .course-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: 0 7px 24px rgba(73, 52, 89, .06);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .course-card:hover { transform: translateY(-7px); box-shadow: var(--shadow); }
+    .course-card img { width: 100%; height: 205px; object-fit: cover; }
+    .course-content { padding: 24px; }
+    .course-content h3 { color: var(--lavender-deep); font-size: 20px; margin-bottom: 10px; }
+    .course-content p { color: var(--muted); font-size: 15px; }
+
+    .gallery { background: linear-gradient(180deg, #f8f4fd 0%, #fcf9ff 100%); }
+    .gallery-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+    .gallery-item {
+      overflow: hidden;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      box-shadow: 0 8px 22px rgba(73, 52, 89, .07);
+      transition: transform .25s ease, box-shadow .25s ease;
+    }
+    .gallery-item:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+    .gallery-grid img { width: 100%; height: 235px; object-fit: cover; transition: transform .35s ease; }
+    .gallery-item:hover img { transform: scale(1.04); }
+    .gallery-item figcaption { padding: 13px 16px 16px; color: var(--lavender-deep); font-weight: 700; font-size: 14px; }
+
+    .admission { background: linear-gradient(135deg, #f8edf7 0%, #eee6fa 55%, #fdf8ff 100%); text-align: center; }
+    .admission h2 { font: 700 clamp(30px, 4vw, 42px) "Playfair Display", Georgia, serif; margin-bottom: 14px; }
+    .admission p { color: #655b70; margin: 0 auto 24px; max-width: 620px; }
+
+    #contact { background: var(--cream); }
+    .contact-grid { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: 45px; align-items: start; }
+    .contact-info, form { background: var(--white); padding: 30px; border: 1px solid var(--line); border-radius: var(--radius); box-shadow: 0 7px 24px rgba(73, 52, 89, .05); }
+    .contact-info h3 { color: var(--lavender-deep); font-size: 23px; margin-bottom: 18px; }
+    .contact-info p { color: var(--muted); margin: 13px 0; overflow-wrap: anywhere; }
+    .contact-info strong { color: var(--ink); }
+    form input, form textarea {
+      display: block;
+      width: 100%;
+      padding: 14px 16px;
+      margin-bottom: 15px;
+      border: 1px solid #e5dce9;
+      border-radius: 12px;
+      background: #fffdfd;
+      color: var(--ink);
+      font: inherit;
+      outline: none;
+      transition: border-color .2s ease, box-shadow .2s ease;
+    }
+    form input:focus, form textarea:focus { border-color: #b7a0d2; box-shadow: 0 0 0 4px rgba(183, 160, 210, .18); }
+    form textarea { min-height: 130px; resize: vertical; }
+    form .btn { margin: 0; }
+    #formStatus { color: #5b8064; font-size: 14px; margin-top: 14px; }
+
+    footer { background: linear-gradient(135deg, #302641, #4a385e); color: #fff8ff; padding: 35px 7%; text-align: center; }
+    footer .logo { color: #eee6fa; margin-bottom: 8px; }
+    footer .logo span { color: #d9c5f0; }
+    footer p { margin: 7px 0; color: #e4dce9; font-size: 14px; }
+
+    @media (max-width: 900px) {
+      header { flex-direction: column; gap: 12px; }
+      nav { justify-content: center; }
+      .about, .contact-grid { grid-template-columns: 1fr; gap: 30px; }
+      .course-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 560px) {
+      header { padding: 14px 5%; }
+      .logo { font-size: 19px; white-space: normal; text-align: center; }
+      nav { gap: 3px; }
+      nav a { font-size: 13px; padding: 7px 9px; }
+      .hero { min-height: 490px; padding: 70px 22px; }
+      .hero::before { inset: 10px; }
+      section { padding: 58px 5%; }
+      .course-grid, .gallery-grid { grid-template-columns: 1fr; }
+      .gallery-grid img { height: 220px; }
+      .stats { gap: 6px; padding: 30px 5%; }
+      .stat { padding: 15px 5px; }
+      .contact-info, form { padding: 22px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="logo">KAUSHAR <span>University</span></div>
+    <nav aria-label="Main navigation">
+      <a href="#home">Home</a>
+      <a href="#about">About</a>
+      <a href="#courses">Courses</a>
+      <a href="#campus">Campus</a>
+      <a href="#admission">Admissions</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <span class="eyebrow">A place to learn and bloom</span>
+        <h1>Welcome to Kaushini “Hardworking” University</h1>
+        <p>Learn Today, Lead Tomorrow. Build Your Future With Us.</p>
+        <a href="#courses" class="btn">Explore Courses ↗</a>
+        <a href="#admission" class="btn btn-light">Apply Now</a>
+      </div>
+    </section>
+
+    <section id="about">
+      <div class="about">
+        <div>
+          <h2>About Our University</h2>
+          <p>Bright Future University is dedicated to academic excellence, innovation, research, and student success. We provide a supportive learning environment that helps students develop the skills needed for tomorrow's world.</p>
+          <p>Our experienced faculty, modern laboratories, digital library, and vibrant campus create opportunities for learning, leadership, and personal growth.</p>
+          <a href="#contact" class="btn">Contact Us ↗</a>
+        </div>
+        <div>
+          <img class="about-photo" src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=1200&q=85" alt="University students enjoying campus life" loading="lazy" onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1562774053-701939374585?auto=format&fit=crop&w=1200&q=85';">
+        </div>
+      </div>
+    </section>
+
+    <section class="stats" aria-label="University statistics">
+      <div class="stat"><h3>10,000+</h3><p>Students</p></div>
+      <div class="stat"><h3>500+</h3><p>Faculty Members</p></div>
+      <div class="stat"><h3>50+</h3><p>Academic Programs</p></div>
+      <div class="stat"><h3>95%</h3><p>Placement Goal</p></div>
+    </section>
+
+    <section id="courses">
+      <h2 class="section-title">Our Popular Courses</h2>
+      <p class="section-intro">Discover programs designed to prepare you for exciting careers and lifelong learning.</p>
+      <div class="course-grid">
+        <article class="course-card">
+          <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80" alt="Computer science and technology" loading="lazy">
+          <div class="course-content"><h3>Computer Science</h3><p>Learn programming, software development, AI, and modern computing technologies.</p></div>
+        </article>
+        <article class="course-card">
+          <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?auto=format&fit=crop&w=800&q=80" alt="Business students collaborating" loading="lazy">
+          <div class="course-content"><h3>Business Administration</h3><p>Develop management, entrepreneurship, marketing, and leadership skills.</p></div>
+        </article>
+        <article class="course-card">
+          <img src="https://images.unsplash.com/photo-1581092918056-0c4c3acd3789?auto=format&fit=crop&w=800&q=80" alt="Engineering and laboratory equipment" loading="lazy">
+          <div class="course-content"><h3>Engineering</h3><p>Explore engineering principles, practical projects, design, and innovation.</p></div>
+        </article>
+        <article class="course-card">
+          <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=800&q=80" alt="Healthcare and medical education" loading="lazy">
+          <div class="course-content"><h3>Health Sciences</h3><p>Build a strong foundation in health, healthcare research, and patient care.</p></div>
+        </article>
+        <article class="course-card">
+          <img src="https://images.unsplash.com/photo-1455390582262-044cdead277a?auto=format&fit=crop&w=800&q=80" alt="Books and academic study" loading="lazy">
+          <div class="course-content"><h3>Arts and Humanities</h3><p>Study communication, literature, history, culture, and creative thinking.</p></div>
+        </article>
+        <article class="course-card">
+          <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Data analysis on a computer" loading="lazy">
+          <div class="course-content"><h3>Data Science</h3><p>Explore statistics, data analytics, visualization, and machine learning.</p></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="gallery" id="campus">
+      <h2 class="section-title">Explore Our Campus</h2>
+      <p class="section-intro">Experience a welcoming campus built for learning, creativity, collaboration, and student life.</p>
+      <div class="gallery-grid">
+        <figure class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1564981797816-1043664bf78d?auto=format&fit=crop&w=1000&q=85" alt="Quiet university library filled with books" loading="lazy">
+          <figcaption>Quiet corners to learn</figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1498243691581-b145c3f54a5a?auto=format&fit=crop&w=1000&q=85" alt="Bright academic library and study spaces" loading="lazy">
+          <figcaption>Spaces that inspire</figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?auto=format&fit=crop&w=1000&q=85" alt="University students gathering outdoors" loading="lazy">
+          <figcaption>Memories with friends</figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=1000&q=85" alt="Graduates celebrating at a university" loading="lazy">
+          <figcaption>Celebrate every milestone</figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1000&q=85" alt="Students working together on campus" loading="lazy">
+          <figcaption>Grow together</figcaption>
+        </figure>
+        <figure class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1000&q=85" alt="Welcoming classroom and learning environment" loading="lazy">
+          <figcaption>Room to dream big</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section class="admission" id="admission">
+      <h2>Admissions Are Open!</h2>
+      <p>Take the first step toward your dream career. Join our learning community and shape your future.</p>
+      <a href="#contact" class="btn">Enquire About Admission ↗</a>
+    </section>
+
+    <section id="contact">
+      <h2 class="section-title">Let's Connect</h2>
+      <p class="section-intro">Have questions about courses or admissions? We would love to hear from you.</p>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <h3>University Information</h3>
+          <p><strong>Address:</strong> University Jio road, USA</p>
+          <p><strong>Email:</strong> info@brightfuture.example</p>
+          <p><strong>Phone:</strong> +91 98765 43210</p>
+          <p><strong>Office Hours:</strong> Monday–Friday, 9 AM–5 PM</p>
+        </div>
+        <form id="contactForm">
+          <input type="text" id="name" name="name" placeholder="Your Name" aria-label="Your Name" required>
+          <input type="email" id="email" name="email" placeholder="Your Email" aria-label="Your Email" required>
+          <input type="text" id="subject" name="subject" placeholder="Subject" aria-label="Subject" required>
+          <textarea id="message" name="message" placeholder="Your Message" aria-label="Your Message" required></textarea>
+          <button type="submit" class="btn">Send Message ↗</button>
+          <p id="formStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="logo">KAUSHAR <span>University</span></div>
+    <p>Knowledge • Innovation • Excellence</p>
+    <p>&copy; 2026 Kaushini “Hardworking” University. All rights reserved.</p>
+  </footer>
+
+  <script>
+    const contactForm = document.getElementById("contactForm");
+    const formStatus = document.getElementById("formStatus");
+
+    contactForm.addEventListener("submit", function (event) {
+      event.preventDefault();
+      formStatus.textContent =
+        "Thank you! This demo form is working, but messages are not sent to a server.";
+      contactForm.reset();
+    });
+  </script>
+</body>
+</html>

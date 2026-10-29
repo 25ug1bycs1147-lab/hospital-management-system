@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CarePlus | Hospital Management System</title>
+<style>
+:root{--ink:#302b46;--muted:#77748c;--lav:#eee8ff;--lav2:#d9ccff;--blue:#e8f4ff;--mint:#e5f8f0;--pink:#fff0f4;--cream:#fffaf0;--white:#fff;--line:#ebe7f4;--purple:#7660bf;--purple-dark:#5c479f;--green:#388b70;--red:#c85c76;--shadow:0 12px 32px rgba(66,48,112,.08)}
+*{box-sizing:border-box}body{margin:0;background:#f8f7fc;color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}.app{display:grid;grid-template-columns:250px 1fr;min-height:100vh}.sidebar{background:#fff;border-right:1px solid var(--line);padding:24px 16px;position:sticky;top:0;height:100vh;overflow:auto}.brand{display:flex;align-items:center;gap:11px;padding:4px 10px 25px}.logo{height:42px;width:42px;border-radius:15px;background:linear-gradient(135deg,#cfc0ff,#bcece0);display:grid;place-items:center;font-size:23px}.brand h1{font-size:18px;margin:0}.brand p{margin:3px 0 0;color:var(--muted);font-size:11px;letter-spacing:1.2px}.nav-label{font-size:10px;font-weight:800;color:#aaa5bc;letter-spacing:1.6px;padding:17px 12px 8px}.nav button{border:0;background:transparent;color:#716d84;width:100%;padding:11px 12px;border-radius:12px;text-align:left;display:flex;gap:11px;align-items:center;margin:3px 0;font-size:13px}.nav button:hover,.nav button.active{background:var(--lav);color:var(--purple-dark);font-weight:700}.nav .ico{width:20px;text-align:center;font-size:16px}.side-note{margin:24px 5px 0;background:linear-gradient(135deg,#f0eaff,#e8f8f1);padding:15px;border-radius:16px;font-size:12px;color:#69617e;line-height:1.5}.side-note strong{display:block;color:var(--ink);margin-bottom:5px}.main{padding:28px clamp(16px,3vw,40px);min-width:0}.topbar{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:26px}.eyebrow{font-size:11px;letter-spacing:1.7px;color:var(--purple);font-weight:800;text-transform:uppercase}.topbar h2{font-size:27px;margin:5px 0 0;letter-spacing:-.7px}.top-actions{display:flex;align-items:center;gap:10px}.role-chip{padding:9px 12px;background:#fff;border:1px solid var(--line);border-radius:12px;font-size:12px;color:var(--muted)}.btn{border:0;border-radius:11px;padding:10px 14px;background:var(--purple);color:#fff;font-weight:700;font-size:12px;box-shadow:0 5px 12px #7660bf20}.btn:hover{background:var(--purple-dark)}.btn.secondary{background:#fff;color:var(--purple-dark);border:1px solid var(--line);box-shadow:none}.btn.danger{background:#fff0f3;color:var(--red);box-shadow:none}.btn.small{padding:6px 9px;font-size:11px}.hero{background:linear-gradient(115deg,#eae3ff 0%,#edf6ff 52%,#e4f8ef 100%);padding:25px;border-radius:22px;display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:20px;overflow:hidden}.hero h3{font-size:24px;margin:7px 0 8px;max-width:570px}.hero p{font-size:13px;color:#6e6985;line-height:1.65;max-width:550px;margin:0}.hero-art{font-size:74px;min-width:100px;text-align:center;filter:drop-shadow(0 10px 10px #9b91bf22)}.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:20px}.stat,.panel{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow)}.stat{padding:18px}.stat-top{display:flex;justify-content:space-between;align-items:center;color:var(--muted);font-size:12px}.stat-icon{height:36px;width:36px;border-radius:12px;display:grid;place-items:center;font-size:17px}.stat strong{display:block;font-size:28px;margin:13px 0 4px}.stat small{color:#8b879c;font-size:11px}.grid2{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}.panel{padding:20px;margin-bottom:16px;min-width:0}.panel-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}.panel-head h3{font-size:15px;margin:0}.panel-head p{margin:4px 0 0;color:var(--muted);font-size:11px}.search{max-width:260px;width:100%;border:1px solid var(--line);background:#fcfbff;border-radius:10px;padding:9px 11px;font-size:12px;outline:none}.search:focus,input:focus,select:focus,textarea:focus{border-color:#b8a8f4;box-shadow:0 0 0 3px #eee8ff}.table-wrap{overflow:auto}table{border-collapse:collapse;width:100%;min-width:620px;font-size:12px}th{text-align:left;color:#9994ab;font-size:10px;text-transform:uppercase;letter-spacing:1px;padding:11px 10px;border-bottom:1px solid var(--line);white-space:nowrap}td{padding:13px 10px;border-bottom:1px solid #f1eef7;color:#625e76;vertical-align:middle}tbody tr:last-child td{border-bottom:0}.person{display:flex;align-items:center;gap:9px;min-width:130px}.avatar{width:32px;height:32px;border-radius:11px;background:var(--lav);display:grid;place-items:center;font-weight:800;color:var(--purple);flex-shrink:0}.person b{display:block;color:var(--ink);font-size:12px}.person small{display:block;color:#9a95aa;font-size:10px;margin-top:3px}.pill{display:inline-block;padding:5px 8px;border-radius:20px;background:var(--mint);color:#38866e;font-size:10px;font-weight:700;white-space:nowrap}.pill.pink{background:var(--pink);color:#ba5973}.pill.blue{background:var(--blue);color:#4b7fa8}.pill.gold{background:#fff5dc;color:#9b7a2d}.dept-list{display:grid;gap:10px}.dept{display:flex;align-items:center;gap:10px;background:#fcfbff;padding:12px;border-radius:12px}.dept-icon{height:37px;width:37px;border-radius:12px;display:grid;place-items:center;font-size:17px}.dept b{display:block;font-size:12px}.dept small{color:var(--muted);font-size:10px}.page{display:none}.page.active{display:block}.section-intro{margin:0 0 18px;color:var(--muted);font-size:13px;line-height:1.6}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:11px;font-weight:700;color:#6f6a83}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:10px;background:#fdfcff;padding:10px 11px;outline:none;color:var(--ink);font-size:12px}.field textarea{min-height:82px;resize:vertical}.form-actions{display:flex;gap:8px;margin-top:16px;flex-wrap:wrap}.toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap;margin-bottom:14px}.toolbar-left{display:flex;gap:8px;flex-wrap:wrap}.toolbar select{border:1px solid var(--line);border-radius:10px;padding:9px;background:#fff;color:var(--ink);font-size:12px}.empty{text-align:center;padding:30px;color:#9893a9;font-size:12px}.notice{padding:12px 14px;background:#fff8e8;border:1px solid #f4e7c5;color:#8c7542;border-radius:12px;font-size:12px;line-height:1.5;margin-bottom:16px}.notice strong{color:#725d2b}.mini-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.mini-card{background:#fcfbff;border:1px solid var(--line);border-radius:14px;padding:15px}.mini-card small{color:var(--muted);font-size:11px}.mini-card strong{display:block;font-size:24px;margin:8px 0}.footer{text-align:center;color:#a29db0;font-size:10px;padding:18px}.mobile-menu{display:none}.login-screen{position:fixed;inset:0;background:#f8f7fc;z-index:50;display:none;place-items:center;padding:20px}.login-screen.show{display:grid}.login-card{max-width:420px;width:100%;background:#fff;border:1px solid var(--line);border-radius:22px;padding:28px;box-shadow:var(--shadow)}.login-card h2{margin:10px 0}.login-card p{color:var(--muted);font-size:12px;line-height:1.6}.login-card .field{margin:14px 0}.toast{position:fixed;right:20px;bottom:20px;background:#302b46;color:#fff;padding:12px 16px;border-radius:12px;font-size:12px;box-shadow:var(--shadow);display:none;z-index:100;max-width:calc(100vw - 40px)}.toast.show{display:block}.report-bars{display:grid;gap:13px}.bar-row{display:grid;grid-template-columns:130px 1fr 45px;gap:10px;align-items:center;font-size:12px;color:var(--muted)}.bar-track{height:9px;background:#f0edf8;border-radius:20px;overflow:hidden}.bar-fill{height:100%;background:linear-gradient(90deg,#b8a7f3,#9fdfc8);border-radius:20px}.hidden{display:none!important}
+@media(max-width:1050px){.app{grid-template-columns:210px 1fr}.stats{grid-template-columns:repeat(2,minmax(0,1fr))}.grid2{grid-template-columns:1fr}}@media(max-width:720px){.app{display:block}.sidebar{position:fixed;left:-270px;top:0;width:250px;z-index:30;transition:left .2s;box-shadow:var(--shadow)}.sidebar.open{left:0}.main{padding:18px 14px}.mobile-menu{display:inline-flex}.topbar h2{font-size:22px}.role-chip{display:none}.hero{padding:20px}.hero h3{font-size:20px}.hero-art{font-size:48px;min-width:60px}.stats{gap:9px}.stat{padding:13px}.stat strong{font-size:23px}.panel{padding:14px}.form-grid{grid-template-columns:1fr}.field.full{grid-column:auto}.mini-cards{grid-template-columns:1fr}.bar-row{grid-template-columns:95px 1fr 30px}.top-actions{gap:6px}}
+</style>
+</head>
+<body>
+  
+<nav>
+    <a href="index.html">🏠 Welcome Page</a>
+    <a href="#dashboard">Dashboard</a>
+    <a href="#patients">Patients</a>
+    <a href="#doctors">Doctors</a>
+    <a href="#appointments">Appointments</a>
+</nav>
+
+<div class="app">
+<aside class="sidebar" id="sidebar">
+  <div class="brand"><div class="logo">✚</div><div><h1>CarePlus</h1><p>HOSPITAL MANAGEMENT</p></div></div>
+  <div class="nav">
+    <div class="nav-label">OVERVIEW</div>
+    <button class="active" data-page="dashboard"><span class="ico">⌂</span>Dashboard</button>
+    <div class="-label">CARE & PEOPLE</div>
+    <button data-page="patients"><span class="ico">♙</span>Patients</button>
+    <button data-page="doctors"><span class="ico">⚕</span>Doctors & Departments</button>
+    <button data-page="appointments"><span class="ico">▦</span>Appointments</button>
+    <button data-page="records"><span class="ico">♡</span>Medical Records</button>
+    <button data-page="staff"><span class="ico">♧</span>Staff Management</button>
+    <div class="-label">HOSPITAL OPERATIONS</div>
+    <button data-page="admissions"><span class="ico">▣</span>Beds & Admissions</button>
+    <button data-page="pharmacy"><span class="ico">⚗</span>Pharmacy Inventory</button>
+    <button data-page="lab"><span class="ico">⌕</span>Laboratory</button>
+    <div class="-label">ADMINISTRATION</div>
+    <button data-page="billing"><span class="ico">₹</span>Billing & Payments</button>
+    <button data-page="notifications"><span class="ico">♧</span>Notifications</button>
+    <button data-page="reports"><span class="ico">▤</span>Reports & Analytics</button>
+    <button data-page="security"><span class="ico">♢</span>Security & Settings</button>
+  </div>
+  <div class="side-note"><strong>🌿 Care with compassion</strong>This is a local demo. Use fictional records only. Data is saved in this browser.</div>
+</aside>
+<main class="main">
+<header class="topbar">
+  <div style="display:flex;align-items:center;gap:10px"><button class="btn secondary mobile-menu" id="menuBtn">☰</button><div><div class="eyebrow">CAREPLUS / <span id="crumb">OVERVIEW</span></div><h2 id="pageTitle">Good morning, Care Team ✨</h2></div></div>
+  <div class="top-actions"><span class="role-chip" id="roleLabel">Demo mode · Admin</span><button class="btn secondary" id="loginToggle">Sign in / role</button><button class="btn" onclick="igate('patients')">＋ Add patient</button></div>
+</header>
+
+<section class="page active" id="page-dashboard">
+  <div class="hero"><div><div class="eyebrow">YOUR HOSPITAL, IN HARMONY</div><h3>A calmer way to manage everyday care.</h3><p>Keep patient details, appointments, medical records, hospital operations and administration organised in one place.</p></div><div class="hero-art">🏥</div></div>
+  <div class="stats">
+    <div class="stat"><div class="stat-top">Registered patients <span class="stat-icon" style="background:var(--lav)">♙</span></div><strong id="statPatients">0</strong><small>Patient directory</small></div>
+    <div class="stat"><div class="stat-top">Appointments <span class="stat-icon" style="background:var(--blue)">▦</span></div><strong id="statAppointments">0</strong><small>All recorded appointments</small></div>
+    <div class="stat"><div class="stat-top">Available beds <span class="stat-icon" style="background:var(--mint)">▣</span></div><strong id="statBeds">0</strong><small>Marked available</small></div>
+    <div class="stat"><div class="stat-top">Pending bills <span class="stat-icon" style="background:var(--pink)">₹</span></div><strong id="statBills">0</strong><small>Unpaid invoices</small></div>
+  </div>
+  <div class="grid2">
+    <div class="panel"><div class="panel-head"><div><h3>Recent patients</h3><p>Latest entries in the directory</p></div><button class="btn secondary small" onclick="igate('patients')">View all →</button></div><div id="recentPatients"></div></div>
+    <div class="panel"><div class="panel-head"><div><h3>Quick actions</h3><p>Jump into common tasks</p></div></div><div class="dept-list">
+      <div class="dept"><div class="dept-icon" style="background:var(--lav)">♙</div><div style="flex:1"><b>Register a patient</b><small>Create a new patient profile</small></div><button class="btn secondary small" onclick="igate('patients')">Open</button></div>
+      <div class="dept"><div class="dept-icon" style="background:var(--blue)">▦</div><div style="flex:1"><b>Book appointment</b><small>Schedule a visit</small></div><button class="btn secondary small" onclick="navigate('appointments')">Open</button></div>
+      <div class="dept"><div class="dept-icon" style="background:var(--mint)">₹</div><div style="flex:1"><b>Create an invoice</b><small>Record charges and payment status</small></div><button class="btn secondary small" onclick="navigate('billing')">Open</button></div>
+      <div class="dept"><div class="dept-icon" style="background:var(--pink)">⚗</div><div style="flex:1"><b>Lab test request</b><small>Track tests and results</small></div><button class="btn secondary small" onclick="navigate('lab')">Open</button></div>
+    </div></div>
+  </div>
+  <div class="panel"><div class="panel-head"><div><h3>Demo checklist</h3><p>Suggested setup sequence for a student project</p></div></div><div class="mini-cards"><div class="mini-card"><small>01 · PEOPLE</small><strong>Patients & staff</strong><small>Keep contact details accurate.</small></div><div class="mini-card"><small>02 · CLINICAL</small><strong>Care records</strong><small>Link visits, notes and tests.</small></div><div class="mini-card"><small>03 · OPERATIONS</small><strong>Billing & beds</strong><small>Track resources and invoices.</small></div></div></div>
+</section>
+
+<section class="page" id="page-patients">
+ <p class="section-intro">Register, search, edit, and remove patient profiles. In this demo, records are stored in your browser only.</p>
+ <div class="grid2">
+  <div class="panel"><div class="panel-head"><div><h3 id="patientFormTitle">Register patient</h3><p>Fields marked * are required</p></div></div>
+   <form id="patientForm"><input type="hidden" id="patientId"><div class="form-grid">
+    <div class="field"><label>Full name *</label><input id="pName" required placeholder="e.g. Aanya Sharma"></div>
+    <div class="field"><label>Age *</label><input id="pAge" required type="number" min="0" max="120" placeholder="Age"></div>
+    <div class="field"><label>Gender</label><select id="pGender"><option>Prefer not to say</option><option>Female</option><option>Male</option><option>Other</option></select></div>
+    <div class="field"><label>Phone</label><input id="pPhone" type="tel" placeholder="Contact number"></div>
+    <div class="field"><label>Department</label><select id="pDept"><option>General Medicine</option><option>Cardiology</option><option>Paediatrics</option><option>Orthopaedics</option><option>Dermatology</option><option>Neurology</option><option>Laboratory</option></select></div>
+    <div class="field"><label>Blood group</label><select id="pBlood"><option>Unknown</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option></select></div>
+    <div class="field full"><label>Address</label><input id="pAddress" placeholder="City / address"></div>
+   </div><div class="form-actions"><button class="btn" type="submit">Save patient</button><button class="btn secondary" type="button" onclick="resetPatientForm()">Clear</button></div></form>
+  </div>
+  <div class="panel"><div class="panel-head"><div><h3>Patient directory</h3><p id="patientCount">0 records</p></div></div><input class="search" id="patientSearch" placeholder="Search name, phone, department…" style="max-width:none;margin-bottom:12px"><div id="patientsTable"></div></div>
+ </div>
+</section>
+
+<section class="page" id="page-doctors">
+ <p class="section-intro">Maintain doctor profiles, specialties, availability and contact information.</p>
+ <div class="grid2">
+  <div class="panel"><div class="panel-head"><div><h3 id="doctorFormTitle">Add doctor</h3><p>Manage clinician directory</p></div></div><form id="doctorForm"><input type="hidden" id="doctorId"><div class="form-grid">
+   <div class="field"><label>Doctor name *</label><input id="dName" required placeholder="Dr. name"></div><div class="field"><label>Specialty *</label><select id="dSpecialty"><option>General Medicine</option><option>Cardiology</option><option>Paediatrics</option><option>Orthopaedics</option><option>Dermatology</option><option>Neurology</option><option>Gynaecology</option></select></div>
+   <div class="field"><label>Phone</label><input id="dPhone" type="tel"></div><div class="field"><label>Availability</label><select id="dAvailability"><option>Available</option><option>On leave</option><option>Unavailable</option></select></div>
+   <div class="field full"><label>Consultation hours</label><input id="dHours" placeholder="e.g. Mon–Fri, 9 AM–2 PM"></div>
+  </div><div class="form-actions"><button class="btn">Save doctor</button><button class="btn secondary" type="button" onclick="resetDoctorForm()">Clear</button></div></form></div>
+  <div class="panel"><div class="panel-head"><div><h3>Doctor directory</h3><p id="doctorCount">0 clinicians</p></div></div><input class="search" id="doctorSearch" placeholder="Search doctors or specialties…" style="max-width:none;margin-bottom:12px"><div id="doctorsTable"></div></div>
+ </div>
+ <div class="panel"><div class="panel-head"><div><h3>Departments</h3><p>Sample hospital departments</p></div></div><div class="mini-cards" id="departmentCards"></div></div>
+</section>
+
+<section class="page" id="page-appointments">
+ <p class="section-intro">Create and track visits. Appointment cancellation is available from the schedule table.</p>
+ <div class="grid2"><div class="panel"><div class="panel-head"><div><h3 id="appointmentFormTitle">Book appointment</h3><p>Use a registered patient where possible</p></div></div><form id="appointmentForm"><input type="hidden" id="appointmentId"><div class="form-grid">
+  <div class="field"><label>Patient name *</label><input id="aPatient" required list="patientOptions" placeholder="Patient name"><datalist id="patientOptions"></datalist></div>
+  <div class="field"><label>Doctor *</label><input id="aDoctor" required list="doctorOptions" placeholder="Doctor name"><datalist id="doctorOptions"></datalist></div>
+  <div class="field"><label>Date *</label><input id="aDate" type="date" required></div><div class="field"><label>Time *</label><input id="aTime" type="time" required></div>
+  <div class="field"><label>Department</label><select id="aDept"><option>General Medicine</option><option>Cardiology</option><option>Paediatrics</option><option>Orthopaedics</option><option>Dermatology</option><option>Neurology</option></select></div><div class="field"><label>Status</label><select id="aStatus"><option>Scheduled</option><option>Checked in</option><option>Completed</option><option>Cancelled</option></select></div>
+  <div class="field full"><label>Reason for visit</label><textarea id="aReason" placeholder="Brief reason (avoid sensitive details in this demo)"></textarea></div>
+ </div><div class="form-actions"><button class="btn">Save appointment</button><button class="btn secondary" type="button" onclick="resetAppointmentForm()">Clear</button></div></form></div>
+ <div class="panel"><div class="panel-head"><div><h3>Appointment schedule</h3><p id="appointmentCount">0 appointments</p></div></div><input class="search" id="appointmentSearch" placeholder="Search patient, doctor, status…" style="max-width:none;margin-bottom:12px"><div id="appointmentsTable"></div></div></div>
+</section>
+
+<section class="page" id="page-records">
+ <p class="section-intro">Demo clinical notes, diagnoses, allergies and prescriptions. Do not enter real patient information in this browser-only prototype.</p>
+ <div class="grid2"><div class="panel"><div class="panel-head"><div><h3 id="recordFormTitle">Add medical record</h3><p>Clinical information should be entered only by authorised staff</p></div></div><form id="recordForm"><input type="hidden" id="recordId"><div class="form-grid">
+  <div class="field"><label>Patient name *</label><input id="rPatient" required list="patientOptions" placeholder="Patient name"></div><div class="field"><label>Visit date *</label><input id="rDate" type="date" required></div>
+  <div class="field"><label>Diagnosis *</label><input id="rDiagnosis" required placeholder="Diagnosis / assessment"></div><div class="field"><label>Allergies</label><input id="rAllergies" placeholder="Known allergies or none reported"></div>
+  <div class="field full"><label>Treatment / prescription</label><textarea id="rTreatment" placeholder="Treatment plan or prescription summary"></textarea></div><div class="field full"><label>Clinical notes</label><textarea id="rNotes" placeholder="Additional notes"></textarea></div>
+ </div><div class="form-actions"><button class="btn">Save record</button><button class="btn secondary" type="button" onclick="resetRecordForm()">Clear</button></div></form></div>
+ <div class="panel"><div class="panel-head"><div><h3>Medical records</h3><p id="recordCount">0 records</p></div></div><input class="search" id="recordSearch" placeholder="Search patient or diagnosis…" style="max-width:none;margin-bottom:12px"><div id="recordsTable"></div></div></div>
+</section>
+
+<section class="page" id="page-staff">
+ <p class="section-intro">Create a simple directory for reception, nursing, laboratory, pharmacy and administration teams.</p>
+ <div class="grid2"><div class="panel"><div class="panel-head"><div><h3 id="staffFormTitle">Add staff member</h3><p>Staff directory</p></div></div><form id="staffForm"><input type="hidden" id="staffId"><div class="form-grid">
+  <div class="field"><label>Full name *</label><input id="sName" required></div><div class="field"><label>Role *</label><select id="sRole"><option>Receptionist</option><option>Nurse</option><option>Lab Technician</option><option>Pharmacist</option><option>Administrator</option><option>Billing Staff</option><option>Ward Assistant</option></select></div>
+  <div class="field"><label>Phone</label><input id="sPhone" type="tel"></div><div class="field"><label>Shift</label><select id="sShift"><option>Morning</option><option>Evening</option><option>Night</option><option>Rotational</option></select></div>
+ </div><div class="form-actions"><button class="btn">Save staff</button><button class="btn secondary" type="button" onclick="resetStaffForm()">Clear</button></div></form></div>
+ <div class="panel"><div class="panel-head"><div><h3>Staff directory</h3><p id="staffCount">0 members</p></div></div><input class="search" id="staffSearch" placeholder="Search staff…" style="max-width:none;margin-bottom:12px"><div id="staffTable"></div></div></div>
+</section>
+
+<section class="page" id="page-admissions">
+ <p class="section-intro">Track bed availability and inpatient admissions. This demo does not integrate with real ward equipment or emergency systems.</p>
+ <div class="grid2"><div class="panel"><div class="panel-head"><div><h3 id="bedFormTitle">Add / update bed</h3><p>Bed inventory</p></div></div><form id="bedForm"><input type="hidden" id="bedId"><div class="form-grid">
+  <div class="field"><label>Bed number *</label><input id="bNumber" required placeholder="e.g. A-101"></div><div class="field"><label>Ward *</label><select id="bWard"><option>General Ward</option><option>ICU</option><option>Maternity</option><option>Paediatrics</option><option>Private Room</option></select></div>
+  <div class="field"><label>Status</label><select id="bStatus"><option>Available</option><option>Occupied</option><option>Maintenance</option></select></div><div class="field"><label>Daily rate (₹)</label><input id="bRate" type="number" min="0" value="1500"></div>
+ </div><div class="form-actions"><button class="btn">Save bed</button><button class="btn secondary" type="button" onclick="resetBedForm()">Clear</button></div></form></div>
+ <div class="panel"><div class="panel-head"><div><h3 id="admissionFormTitle">Admit patient</h3><p>Inpatient stay record</p></div></div><form id="admissionForm"><input type="hidden" id="admissionId"><div class="form-grid">
+  <div class="field"><label>Patient name *</label><input id="adPatient" required list="patientOptions"></div><div class="field"><label>Bed number *</label><input id="adBed" required list="bedOptions"><datalist id="bedOptions"></datalist></div>
+  <div class="field"><label>Admission date *</label><input id="adDate" type="date" required></div><div class="field"><label>Discharge date</label><input id="adDischarge" type="date"></div>
+  <div class="field full"><label>Reason / notes</label><textarea id="adReason"></textarea></div>
+ </div><div class="form-actions"><button class="btn">Save admission</button><button class="btn secondary" type="button" onclick="resetAdmissionForm()">Clear</button></div></form></div></div>
+ <div class="grid2"><div class="panel"><div class="panel-head"><div><h3>Bed inventory</h3><p id="bedCount">0 beds</p></div></div><div id="bedsTable"></div></div><div class="panel"><div class="panel-head"><div><h3>Admissions</h3><p id="admissionCount">0 stays</p></div></div><div id="admissionsTable"></div></div></div>
+</section>
+
+<section class="page" id="page-pharmacy">
+ <p class="section-intro">Track medicine names, quantities, expiry dates and reorder levels. This is not a dispensing or prescribing system.</p>
+ <div class="grid2"><div class="panel"><div class="panel-head"><div><h3 id="medicineFormTitle">Add medicine stock</h3><p>Inventory entry</p></div></div><form id="medicineForm"><input type="hidden" id="medicineId"><div class="form-grid">
+  <div class="field"><label>Medicine name *</label><input id="mName" required></div><div class="field"><label>Batch number</label><input id="mBatch"></div>
+  <div class="field"><label>Quantity *</label><input id="mQty" type="number" min="0" required></div><div class="field"><label>Reorder level</label><input id="mReorder" type="number" min="0" value="10"></div>
+  <div class="field"><label>Expiry date</label><input id="mExpiry" type="date"></div><div class="field"><label>Unit price (₹)</label><input id="mPrice" type="number" min="0" step=".01" value="0"></div>
+ </div><div class="form-actions"><button class="btn">Save stock</button><button class="btn secondary" type="button" onclick="resetMedicineForm()">Clear</button></div></form></div>
+ <div class="panel"><div class="panel-head"><div><h3>Stock overview</h3><p>Inventory alerts are calculated from reorder levels</p></div></div><div class="mini-cards"><div class="mini-card"><small>ITEMS</small><strong id="medicineTotal">0</strong></div><div class="mini-card"><small>LOW STOCK</small><strong id="medicineLow">0</strong></div><div class="mini-card"><small>UNITS IN STOCK</small><strong id="medicineUnits">0</strong></div></div></div></div>
+ <div class="panel"><div class="panel-head"><div><h3>Medicine inventory</h3><p id="medicineCount">0 items</p></div><input class="search" id="medicineSearch" placeholder="Search medicine…" /></div><div id="medicinesTable"></div></div>
+</section>
+
+<section class="page" id="page-lab">
+ <p class="section-intro">Record test requests and results for demonstration only. Clinical results must be verified and released through a secure laboratory workflow.</p>
+ <div class="grid2"><div class="panel"><div class="panel-head"><div><h3 id="labFormTitle">Create lab request</h3><p>Test tracking</p></div></div><form id="labForm"><input type="hidden" id="labId"><div class="form-grid">
+  <div class="field"><label>Patient name *</label><input id="lPatient" required list="patientOptions"></div><div class="field"><label>Test name *</label><input id="lTest" required placeholder="e.g. CBC"></div>
+  <div class="field"><label>Request date *</label><input id="lDate" type="date" required></div><div class="field"><label>Status</label><select id="lStatus"><option>Requested</option><option>Sample collected</option><option>Processing</option><option>Completed</option><option>Cancelled</option></select></div>
+  <div class="field full"><label>Result / notes</label><textarea id="lResult" placeholder="Enter verified result summary for demo"></textarea></div>
+ </div><div class="form-actions"><button class="btn">Save lab request</button><button class="btn secondary" type="button" onclick="resetLabForm()">Clear</button></div></form></div>
+ <div class="panel"><div class="panel-head"><div><h3>Laboratory requests</h3><p id="labCount">0 requests</p></div></div><input class="search" id="labSearch" placeholder="Search patient, test, status…" style="max-width:none;margin-bottom:12px"><div id="labTable"></div></div></div>
+</section>
+
+<section class="page" id="page-billing">
+ <p class="section-intro">Create invoices and track payment status. This demo does not process payments or store payment card details.</p>
+ <div class="grid2"><div class="panel"><div class="panel-head"><div><h3 id="billFormTitle">Create invoice</h3><p>Invoice details</p></div></div><form id="billForm"><input type="hidden" id="billId"><div class="form-grid">
+  <div class="field"><label>Patient name *</label><input id="billPatient" required list="patientOptions"></div><div class="field"><label>Invoice date *</label><input id="billDate" type="date" required></div>
+  <div class="field"><label>Consultation (₹)</label><input id="billConsult" type="number" min="0" value="0"></div><div class="field"><label>Tests (₹)</label><input id="billTests" type="number" min="0" value="0"></div>
+  <div class="field"><label>Medicines (₹)</label><input id="billMeds" type="number" min="0" value="0"></div><div class="field"><label>Other charges (₹)</label><input id="billOther" type="number" min="0" value="0"></div>
+  <div class="field"><label>Payment status</label><select id="billStatus"><option>Pending</option><option>Partially paid</option><option>Paid</option><option>Waived</option></select></div><div class="field"><label>Payment method</label><select id="billMethod"><option>Not recorded</option><option>Cash</option><option>Card (demo only)</option><option>UPI (demo only)</option><option>Insurance</option></select></div>
+ </div><div class="form-actions"><button class="btn">Save invoice</button><button class="btn secondary" type="button" onclick="resetBillForm()">Clear</button></div></form></div>
+ <div class="panel"><div class="panel-head"><div><h3>Billing summary</h3><p>Calculated from saved invoices</p></div></div><div class="mini-cards"><div class="mini-card"><small>TOTAL INVOICED</small><strong id="billTotal">₹0</strong></div><div class="mini-card"><small>PAID</small><strong id="billPaid">₹0</strong></div><div class="mini-card"><small>PENDING</small><strong id="billPending">₹0</strong></div></div></div></div>
+ <div class="panel"><div class="panel-head"><div><h3>Invoices</h3><p id="billCount">0 invoices</p></div><input class="search" id="billSearch" placeholder="Search patient or status…" /></div><div id="billsTable"></div></div>
+</section>
+
+<section class="page" id="page-notifications">
+ <p class="section-intro">Create internal reminders for appointments, follow-ups, stock alerts and administrative tasks. This prototype does not send email or SMS.</p>
+ <div class="grid2"><div class="panel"><div class="panel-head"><div><h3 id="notificationFormTitle">Add notification</h3><p>Internal task or reminder</p></div></div><form id="notificationForm"><input type="hidden" id="notificationId"><div class="form-grid">
+  <div class="field full"><label>Title *</label><input id="nTitle" required placeholder="e.g. Confirm tomorrow's appointments"></div><div class="field"><label>Category</label><select id="nCategory"><option>Appointment</option><option>Follow-up</option><option>Inventory</option><option>Billing</option><option>Staff</option><option>General</option></select></div>
+  <div class="field"><label>Due date</label><input id="nDate" type="date"></div><div class="field"><label>Priority</label><select id="nPriority"><option>Normal</option><option>High</option><option>Urgent</option></select></div><div class="field"><label>Status</label><select id="nStatus"><option>Open</option><option>In progress</option><option>Completed</option></select></div>
+  <div class="field full"><label>Details</label><textarea id="nDetails"></textarea></div>
+ </div><div class="form-actions"><button class="btn">Save notification</button><button class="btn secondary" type="button" onclick="resetNotificationForm()">Clear</button></div></form></div>
+ <div class="panel"><div class="panel-head"><div><h3>Reminders & notifications</h3><p id="notificationCount">0 items</p></div></div><input class="search" id="notificationSearch" placeholder="Search reminders…" style="max-width:none;margin-bottom:12px"><div id="notificationsTable"></div></div></div>
+</section>
+
+<section class="page" id="page-reports">
+ <p class="section-intro">A simple overview calculated from the records saved in this browser. Export CSV files for a classroom demonstration; do not export real patient information from this prototype.</p>
+ <div class="stats">
+  <div class="stat"><div class="stat-top">Patients <span class="stat-icon" style="background:var(--lav)">♙</span></div><strong id="reportPatients">0</strong><small>Total profiles</small></div>
+  <div class="stat"><div class="stat-top">Doctors <span class="stat-icon" style="background:var(--blue)">⚕</span></div><strong id="reportDoctors">0</strong><small>In directory</small></div>
+  <div class="stat"><div class="stat-top">Lab requests <span class="stat-icon" style="background:var(--mint)">⚗</span></div><strong id="reportLab">0</strong><small>All statuses</small></div>
+  <div class="stat"><div class="stat-top">Open reminders <span class="stat-icon" style="background:var(--pink)">♧</span></div><strong id="reportNotifications">0</strong><small>Not completed</small></div>
+ </div>
+ <div class="grid2"><div class="panel"><div class="panel-head"><div><h3>Appointment status</h3><p>Distribution of recorded appointments</p></div></div><div class="report-bars" id="appointmentBars"></div></div>
+ <div class="panel"><div class="panel-head"><div><h3>Inventory overview</h3><p>Pharmacy stock by item</p></div></div><div class="report-bars" id="inventoryBars"></div></div></div>
+ <div class="panel"><div class="panel-head"><div><h3>Export demo data</h3><p>Downloads a CSV file generated in this browser</p></div></div><div class="toolbar"><div class="toolbar-left"><select id="exportType"><option value="patients">Patients</option><option value="doctors">Doctors</option><option value="appointments">Appointments</option><option value="records">Medical records</option><option value="staff">Staff</option><option value="beds">Beds</option><option value="admissions">Admissions</option><option value="medicines">Pharmacy</option><option value="lab">Laboratory</option><option value="bills">Billing</option><option value="notifications">Notifications</option></select><button class="btn" onclick="exportCSV()">Download CSV</button></div><button class="btn secondary" onclick="window.print()">Print report</button></div></div>
+</section>
+
+<section class="page" id="page-security">
+ <p class="section-intro">Demonstration settings for a student project. The role switch below changes the interface demo only; it is not real authentication or an access-control system.</p>
+ <div class="notice"><strong>Security notice:</strong> localStorage data can be read or changed by someone with access to this browser. Do not enter real patient records. A production system needs a backend, database permissions, secure login, encryption, audit logs, backups and applicable privacy-law compliance.</div>
+ <div class="grid2"><div class="panel"><div class="panel-head"><div><h3>Demo user role</h3><p>Choose a role to preview different UI states</p></div></div><div class="field"><label>Active demo role</label><select id="securityRole"><option>Admin</option><option>Doctor</option><option>Receptionist</option><option>Patient</option></select></div><div class="form-actions"><button class="btn" onclick="applyRole()">Apply demo role</button><button class="btn secondary" onclick="showLogin()">Open sign-in screen</button></div><p style="font-size:11px;color:var(--muted);line-height:1.6">This role selector does not protect stored data or replace server-side permission checks.</p></div>
+ <div class="panel"><div class="panel-head"><div><h3>Data tools</h3><p>Back up or clear this browser's demo records</p></div></div><div class="dept-list"><div class="dept"><div class="dept-icon" style="background:var(--mint)">⇩</div><div style="flex:1"><b>Export all demo data</b><small>Download a JSON backup file</small></div><button class="btn secondary small" onclick="exportBackup()">Export</button></div><div class="dept"><div class="dept-icon" style="background:var(--pink)">⌫</div><div style="flex:1"><b>Clear all demo data</b><small>This cannot be undone</small></div><button class="btn danger small" onclick="clearAllData()">Clear data</button></div><div class="dept"><div class="dept-icon" style="background:var(--lav)">◷</div><div style="flex:1"><b>Audit activity</b><small id="auditSummary">0 actions recorded</small></div><button class="btn secondary small" onclick="showAudit()">View</button></div></div></div></div>
+ <div class="panel"><div class="panel-head"><div><h3>Production security checklist</h3><p>Before using a hospital system with real data</p></div></div><div class="mini-cards"><div class="mini-card"><small>AUTHENTICATION</small><strong>Server login</strong><small>Hashed passwords, secure sessions, MFA where appropriate.</small></div><div class="mini-card"><small>AUTHORIZATION</small><strong>Role permissions</strong><small>Enforce permissions on every backend request.</small></div><div class="mini-card"><small>DATA PROTECTION</small><strong>Encryption & logs</strong><small>Encrypted transport, backups, audit trail and retention policy.</small></div></div></div>
+</section>
+<div class="footer">CarePlus HMS · Student demo prototype · Not for clinical use</div>
+</main>
+</div>
+
+<div class="login-screen" id="loginScreen"><div class="login-card"><div class="brand" style="padding:0"><div class="logo">✚</div><div><h1>CarePlus</h1><p>DEMO SIGN-IN</p></div></div><h2>Welcome back ✨</h2><p>This sign-in is a visual demo only. It does not verify credentials or secure patient data.</p><form id="loginForm"><div class="field"><label>Demo username</label><input id="loginUser" placeholder="e.g. careplus-admin" required></div><div class="field"><label>Demo role</label><select id="loginRole"><option>Admin</option><option>Doctor</option><option>Receptionist</option><option>Patient</option></select></div><div class="form-actions"><button class="btn">Continue demo</button><button class="btn secondary" type="button" onclick="hideLogin()">Cancel</button></div></form></div></div>
+<div class="toast" id="toast"></div>
+<script>
+const DB_KEYS={patients:'careplus_patients_v2',doctors:'careplus_doctors_v2',appointments:'careplus_appointments_v2',records:'careplus_records_v2',staff:'careplus_staff_v2',beds:'careplus_beds_v2',admissions:'careplus_admissions_v2',medicines:'careplus_medicines_v2',lab:'careplus_lab_v2',bills:'careplus_bills_v2',notifications:'careplus_notifications_v2',audit:'careplus_audit_v2'};
+const titles={dashboard:'Good morning, Care Team ✨',patients:'Patient management',doctors:'Doctors & departments',appointments:'Appointment management',records:'Medical records',staff:'Staff management',admissions:'Beds & admissions',pharmacy:'Pharmacy inventory',lab:'Laboratory management',billing:'Billing & payments',notifications:'Notifications & reminders',reports:'Reports & analytics',security:'Security & settings'};
+const icons={patients:'♙',doctors:'⚕',appointments:'▦',records:'♡',staff:'♧',beds:'▣',admissions:'▣',medicines:'⚗',lab:'⌕',bills:'₹',notifications:'♧'};
+const fields={
+ patients:['name','age','gender','phone','department','blood','address'],
+ doctors:['name','specialty','phone','availability','hours'],
+ appointments:['patient','doctor','date','time','department','status','reason'],
+ records:['patient','date','diagnosis','allergies','treatment','notes'],
+ staff:['name','role','phone','shift'],
+ beds:['number','ward','status','rate'],
+ admissions:['patient','bed','date','discharge','reason'],
+ medicines:['name','batch','qty','reorder','expiry','price'],
+ lab:['patient','test','date','status','result'],
+ bills:['patient','date','consult','tests','meds','other','status','method'],
+ notifications:['title','category','date','priority','status','details']
+};
+const labels={name:'Name',age:'Age',gender:'Gender',phone:'Phone',department:'Department',blood:'Blood group',address:'Address',specialty:'Specialty',availability:'Availability',hours:'Hours',patient:'Patient',doctor:'Doctor',date:'Date',time:'Time',status:'Status',reason:'Reason',diagnosis:'Diagnosis',allergies:'Allergies',treatment:'Treatment',notes:'Notes',role:'Role',shift:'Shift',number:'Bed no.',ward:'Ward',rate:'Daily rate',bed:'Bed',discharge:'Discharge',batch:'Batch',qty:'Quantity',reorder:'Reorder level',expiry:'Expiry',price:'Unit price',test:'Test',result:'Result',consult:'Consultation',tests:'Tests',meds:'Medicines',other:'Other charges',method:'Payment method',title:'Title',category:'Category',priority:'Priority',details:'Details'};
+let activeRole='Admin';
+function read(key){try{return JSON.parse(localStorage.getItem(DB_KEYS[key])||'[]')}catch(e){return []}}
+function write(key,data){try{localStorage.setItem(DB_KEYS[key],JSON.stringify(data));return true}catch(e){toast('Browser storage is unavailable or full.');return false}}
+function uid(){return 'cp-'+Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7)}
+function audit(action,detail){const a=read('audit');a.unshift({id:uid(),at:new Date().toLocaleString(),action,detail});write('audit',a.slice(0,150));const el=document.getElementById('auditSummary');if(el)el.textContent=a.length+' actions recorded'}
+function toast(message){const el=document.getElementById('toast');el.textContent=message;el.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>el.classList.remove('show'),2800)}
+function esc(value){return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function navigate(page){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById('page-'+page)?.classList.add('active');document.querySelectorAll('.nav button[data-page]').forEach(b=>b.classList.toggle('active',b.dataset.page===page));document.getElementById('pageTitle').textContent=titles[page]||page;document.getElementById('crumb').textContent=page.replace(/([A-Z])/g,' $1').toUpperCase();document.getElementById('sidebar').classList.remove('open');renderAll()}
+document.querySelectorAll('.nav button[data-page]').forEach(b=>b.addEventListener('click',()=>navigate(b.dataset.page)));
+document.getElementById('menuBtn').addEventListener('click',()=>document.getElementById('sidebar').classList.toggle('open'));
+function dateToday(){return new Date().toISOString().slice(0,10)}
+function setDefaultDates(){['aDate','rDate','adDate','lDate','billDate','nDate'].forEach(id=>{const el=document.getElementById(id);if(el&&!el.value)el.value=dateToday()})}
+function makeTable(key,containerId,searchId,columns,actions=true){const target=document.getElementById(containerId);if(!target)return;let data=read(key);const query=(document.getElementById(searchId)?.value||'').toLowerCase().trim();if(query)data=data.filter(o=>Object.values(o).join(' ').toLowerCase().includes(query));if(!data.length){target.innerHTML='<div class="empty">No records found yet. Add an entry using the form.</div>';return}
+let html='<div class="table-wrap"><table><thead><tr>'+columns.map(c=>'<th>'+esc(labels[c]||c)+'</th>').join('')+(actions?'<th>Actions</th>':'')+'</tr></thead><tbody>';
+for(const o of data){html+='<tr>'+columns.map(c=>'<td>'+formatCell(key,c,o[c])+'</td>').join('');if(actions)html+=`<td><div style="display:flex;gap:5px;flex-wrap:wrap"><button class="btn secondary small" onclick="editItem('${key}','${o.id}')">Edit</button><button class="btn danger small" onclick="deleteItem('${key}','${o.id}')">Delete</button></div></td>`;html+='</tr>'}html+='</tbody></table></div>';target.innerHTML=html}
+function formatCell(key,col,value){if(value===undefined||value===null||value==='')return '<span style="color:#b3afc1">—</span>';if(['status','availability','priority'].includes(col)){let cl=(String(value).toLowerCase().includes('cancel')||String(value).toLowerCase().includes('urgent')||String(value).toLowerCase().includes('occupied')||String(value).toLowerCase().includes('pending'))?'pink':(String(value).toLowerCase().includes('paid')||String(value).toLowerCase().includes('available')||String(value).toLowerCase().includes('completed'))?'':'blue';return '<span class="pill '+cl+'">'+esc(value)+'</span>'}if(['rate','price','consult','tests','meds','other'].includes(col))return '₹'+esc(value);return esc(value)}
+function formValues(prefix,key){const out={};for(const f of fields[key]){const id=prefix+f.charAt(0).toUpperCase()+f.slice(1);const el=document.getElementById(id);if(el)out[f]=el.value.trim()}return out}
+function saveFromForm(formId,key,prefix,resetFn){const form=document.getElementById(formId);form.addEventListener('submit',e=>{e.preventDefault();const idEl=document.getElementById(prefix+'Id');const id=idEl?.value;const values=formValues(prefix,key);const data=read(key);if(id){const idx=data.findIndex(x=>x.id===id);if(idx>=0)data[idx]={...data[idx],...values,updatedAt:new Date().toISOString()}}else data.unshift({id:uid(),...values,createdAt:new Date().toISOString()});if(write(key,data)){audit(id?'Updated '+key:'Added '+key,values.name||values.patient||values.title||values.number||values.test||'record');resetFn();renderAll();toast(id?'Record updated.':'Record saved.')}})}
+function editItem(key,id){const item=read(key).find(x=>x.id===id);if(!item)return;const prefix={patients:'p',doctors:'d',appointments:'a',records:'r',staff:'s',beds:'b',admissions:'ad',medicines:'m',lab:'l',bills:'bill',notifications:'n'}[key];const page={patients:'patients',doctors:'doctors',appointments:'appointments',records:'records',staff:'staff',beds:'admissions',admissions:'admissions',medicines:'pharmacy',lab:'lab',bills:'billing',notifications:'notifications'}[key];navigate(page);document.getElementById(prefix+'Id').value=item.id;for(const f of fields[key]){const idField=prefix+f.charAt(0).toUpperCase()+f.slice(1);const el=document.getElementById(idField);if(el)el.value=item[f]??''}const titleMap={patients:'patientFormTitle',doctors:'doctorFormTitle',appointments:'appointmentFormTitle',records:'recordFormTitle',staff:'staffFormTitle',beds:'bedFormTitle',admissions:'admissionFormTitle',medicines:'medicineFormTitle',lab:'labFormTitle',bills:'billFormTitle',notifications:'notificationFormTitle'};if(titleMap[key])document.getElementById(titleMap[key]).textContent='Edit '+key.slice(0,-1);toast('Editing selected record.')}
+function deleteItem(key,id){if(!confirm('Delete this '+key.slice(0,-1)+' record? This cannot be undone.'))return;const item=read(key).find(x=>x.id===id);if(!write(key,read(key).filter(x=>x.id!==id)))return;audit('Deleted '+key,item?.name||item?.patient||item?.title||id);renderAll();toast('Record deleted.')}
+function resetForm(formId,idId,titleId,title){document.getElementById(formId).reset();document.getElementById(idId).value='';if(titleId)document.getElementById(titleId).textContent=title;setDefaultDates()}
+function resetPatientForm(){resetForm('patientForm','patientId','patientFormTitle','Register patient')}
+function resetDoctorForm(){resetForm('doctorForm','doctorId','doctorFormTitle','Add doctor')}
+function resetAppointmentForm(){resetForm('appointmentForm','appointmentId','appointmentFormTitle','Book appointment')}
+function resetRecordForm(){resetForm('recordForm','recordId','recordFormTitle','Add medical record')}
+function resetStaffForm(){resetForm('staffForm','staffId','staffFormTitle','Add staff member')}
+function resetBedForm(){resetForm('bedForm','bedId','bedFormTitle','Add / update bed')}
+function resetAdmissionForm(){resetForm('admissionForm','admissionId','admissionFormTitle','Admit patient')}
+function resetMedicineForm(){resetForm('medicineForm','medicineId','medicineFormTitle','Add medicine stock')}
+function resetLabForm(){resetForm('labForm','labId','labFormTitle','Create lab request')}
+function resetBillForm(){resetForm('billForm','billId','billFormTitle','Create invoice')}
+function resetNotificationForm(){resetForm('notificationForm','notificationId','notificationFormTitle','Add notification')}
+saveFromForm('patientForm','patients','p',resetPatientForm);
+saveFromForm('doctorForm','doctors','d',resetDoctorForm);
+saveFromForm('appointmentForm','appointments','a',resetAppointmentForm);
+saveFromForm('recordForm','records','r',resetRecordForm);
+saveFromForm('staffForm','staff','s',resetStaffForm);
+saveFromForm('bedForm','beds','b',resetBedForm);
+saveFromForm('admissionForm','admissions','ad',resetAdmissionForm);
+saveFromForm('medicineForm','medicines','m',resetMedicineForm);
+saveFromForm('labForm','lab','l',resetLabForm);
+saveFromForm('billForm','bills','bill',resetBillForm);
+saveFromForm('notificationForm','notifications','n',resetNotificationForm);
+function setSearches(){const config={patientSearch:['patients','patientsTable',['name','age','phone','department','blood']],doctorSearch:['doctors','doctorsTable',['name','specialty','phone','availability']],appointmentSearch:['appointments','appointmentsTable',['patient','doctor','date','status']],recordSearch:['records','recordsTable',['patient','diagnosis','date']],staffSearch:['staff','staffTable',['name','role','phone']],medicineSearch:['medicines','medicinesTable',['name','batch','expiry']],labSearch:['lab','labTable',['patient','test','status']],billSearch:['bills','billsTable',['patient','status','date']],notificationSearch:['notifications','notificationsTable',['title','category','status']]};for(const [id,[key,container,cols]] of Object.entries(config)){const el=document.getElementById(id);if(el)el.addEventListener('input',()=>makeTable(key,container,id,cols))}}
+setSearches();
+function updateOptions(){const p=read('patients'),d=read('doctors'),b=read('beds');document.getElementById('patientOptions').innerHTML=p.map(x=>'<option value="'+esc(x.name)+'">').join('');document.getElementById('doctorOptions').innerHTML=d.map(x=>'<option value="'+esc(x.name)+'">').join('');document.getElementById('bedOptions').innerHTML=b.map(x=>'<option value="'+esc(x.number)+'">').join('')}
+function renderAll(){
+ updateOptions();
+ makeTable('patients','patientsTable','patientSearch',['name','age','gender','phone','department','blood']);
+ makeTable('doctors','doctorsTable','doctorSearch',['name','specialty','phone','availability']);
+ makeTable('appointments','appointmentsTable','appointmentSearch',['patient','doctor','date','time','department','status']);
+ makeTable('records','recordsTable','recordSearch',['patient','date','diagnosis','allergies']);
+ makeTable('staff','staffTable','staffSearch',['name','role','phone','shift']);
+ makeTable('beds','bedsTable',null,['number','ward','status','rate']);
+ makeTable('admissions','admissionsTable',null,['patient','bed','date','discharge']);
+ makeTable('medicines','medicinesTable','medicineSearch',['name','batch','qty','reorder','expiry','price']);
+ makeTable('lab','labTable','labSearch',['patient','test','date','status','result']);
+ makeTable('bills','billsTable','billSearch',['patient','date','consult','tests','meds','other','status']);
+ makeTable('notifications','notificationsTable','notificationSearch',['title','category','date','priority','status']);
+ document.getElementById('patientCount').textContent=read('patients').length+' records';document.getElementById('doctorCount').textContent=read('doctors').length+' clinicians';document.getElementById('appointmentCount').textContent=read('appointments').length+' appointments';document.getElementById('recordCount').textContent=read('records').length+' records';document.getElementById('staffCount').textContent=read('staff').length+' members';document.getElementById('bedCount').textContent=read('beds').length+' beds';document.getElementById('admissionCount').textContent=read('admissions').length+' stays';document.getElementById('medicineCount').textContent=read('medicines').length+' items';document.getElementById('labCount').textContent=read('lab').length+' requests';document.getElementById('billCount').textContent=read('bills').length+' invoices';document.getElementById('notificationCount').textContent=read('notifications').length+' items';
+ const p=read('patients'),a=read('appointments'),beds=read('beds'),bills=read('bills');document.getElementById('statPatients').textContent=p.length;document.getElementById('statAppointments').textContent=a.length;document.getElementById('statBeds').textContent=beds.filter(x=>x.status==='Available').length;document.getElementById('statBills').textContent=bills.filter(x=>x.status==='Pending'||x.status==='Partially paid').length;
+ const recent=p.slice(0,5);document.getElementById('recentPatients').innerHTML=recent.length?'<div class="table-wrap"><table style="min-width:400px"><thead><tr><th>Patient</th><th>Department</th><th>Blood group</th></tr></thead><tbody>'+recent.map(x=>'<tr><td><div class="person"><div class="avatar">'+esc((x.name||'?').charAt(0).toUpperCase())+'</div><div><b>'+esc(x.name)+'</b><small>'+esc(x.phone||'No phone recorded')+'</small></div></div></td><td>'+esc(x.department||'—')+'</td><td>'+esc(x.blood||'—')+'</td></tr>').join('')+'</tbody></table></div>':'<div class="empty">No patients yet. Register your first demo patient.</div>';
+ document.getElementById('departmentCards').innerHTML=['General Medicine','Cardiology','Paediatrics','Orthopaedics','Dermatology','Neurology'].map((x,i)=>'<div class="mini-card"><small>DEPARTMENT '+String(i+1).padStart(2,'0')+'</small><strong style="font-size:15px">'+x+'</strong><small>'+read('doctors').filter(d=>d.specialty===x).length+' doctor(s) listed</small></div>').join('');
+ const meds=read('medicines');document.getElementById('medicineTotal').textContent=meds.length;document.getElementById('medicineLow').textContent=meds.filter(x=>Number(x.qty)<=Number(x.reorder)).length;document.getElementById('medicineUnits').textContent=meds.reduce((s,x)=>s+Number(x.qty||0),0);
+ const total=bills.reduce((s,x)=>s+Number(x.consult||0)+Number(x.tests||0)+Number(x.meds||0)+Number(x.other||0),0);const paid=bills.filter(x=>x.status==='Paid').reduce((s,x)=>s+Number(x.consult||0)+Number(x.tests||0)+Number(x.meds||0)+Number(x.other||0),0);document.getElementById('billTotal').textContent='₹'+total.toLocaleString('en-IN');document.getElementById('billPaid').textContent='₹'+paid.toLocaleString('en-IN');document.getElementById('billPending').textContent='₹'+(total-paid).toLocaleString('en-IN');
+ document.getElementById('reportPatients').textContent=p.length;document.getElementById('reportDoctors').textContent=read('doctors').length;document.getElementById('reportLab').textContent=read('lab').length;document.getElementById('reportNotifications').textContent=read('notifications').filter(x=>x.status!=='Completed').length;
+ const apStatuses=['Scheduled','Checked in','Completed','Cancelled'];document.getElementById('appointmentBars').innerHTML=apStatuses.map(s=>{const n=a.filter(x=>x.status===s).length;const pct=a.length?Math.round(n/a.length*100):0;return '<div class="bar-row"><span>'+s+'</span><div class="bar-track"><div class="bar-fill" style="width:'+pct+'%"></div></div><b>'+n+'</b></div>'}).join('');
+ const topM=meds.slice(0,6);document.getElementById('inventoryBars').innerHTML=topM.length?topM.map(m=>{const max=Math.max(1,...meds.map(x=>Number(x.qty)||0));const pct=Math.min(100,Math.round(Number(m.qty||0)/max*100));return '<div class="bar-row"><span>'+esc(m.name)+'</span><div class="bar-track"><div class="bar-fill" style="width:'+pct+'%"></div></div><b>'+esc(m.qty)+'</b></div>'}).join(''):'<div class="empty">Add medicines to see inventory.</div>';
+ document.getElementById('auditSummary').textContent=read('audit').length+' actions recorded';
+}
+function applyRole(){activeRole=document.getElementById('securityRole').value;document.getElementById('roleLabel').textContent='Demo mode · '+activeRole;toast('Demo role changed to '+activeRole+'. No real permissions were changed.');audit('Changed demo role',activeRole)}
+function showLogin(){document.getElementById('loginScreen').classList.add('show')}
+function hideLogin(){document.getElementById('loginScreen').classList.remove('show')}
+document.getElementById('loginToggle').addEventListener('click',showLogin);document.getElementById('loginForm').addEventListener('submit',e=>{e.preventDefault();activeRole=document.getElementById('loginRole').value;document.getElementById('securityRole').value=activeRole;document.getElementById('roleLabel').textContent='Demo mode · '+activeRole;hideLogin();toast('Demo sign-in complete. This is not secure authentication.');audit('Demo sign-in',document.getElementById('loginUser').value+' / '+activeRole)});
+function exportCSV(){const key=document.getElementById('exportType').value;const rows=read(key);if(!rows.length){toast('No records to export.');return}const cols=fields[key]||Object.keys(rows[0]).filter(k=>k!=='id');const csv=[cols.map(csvCell).join(','),...rows.map(r=>cols.map(c=>csvCell(r[c])).join(','))].join('\r\n');downloadFile(key+'-demo-export.csv',csv,'text/csv;charset=utf-8;');audit('Exported CSV',key);toast('CSV export prepared.')}
+function csvCell(v){return '"'+String(v??'').replace(/"/g,'""')+'"'}
+function downloadFile(name,content,type){const blob=new Blob([content],{type});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=name;document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url)}
+function exportBackup(){const backup={exportedAt:new Date().toISOString(),data:{}};for(const k of Object.keys(DB_KEYS))backup.data[k]=read(k);downloadFile('careplus-demo-backup.json',JSON.stringify(backup,null,2),'application/json');audit('Exported full backup','JSON');toast('Backup file prepared.')}
+function clearAllData(){if(!confirm('Permanently clear all CarePlus demo records from this browser? Export a backup first if needed.'))return;Object.keys(DB_KEYS).forEach(k=>localStorage.removeItem(DB_KEYS[k]));audit('Cleared demo data','All modules');renderAll();toast('Demo data cleared.')}
+function showAudit(){const a=read('audit');alert(a.length?a.slice(0,30).map(x=>x.at+' — '+x.action+' — '+x.detail).join('\\n'):'No activity recorded yet.')}
+function seedDemo(){if(read('patients').length||read('doctors').length)return;write('patients',[{id:uid(),name:'Aanya Sharma',age:'28',gender:'Female',phone:'9000000001',department:'General Medicine',blood:'B+',address:'Demo City'},{id:uid(),name:'Rohan Mehta',age:'46',gender:'Male',phone:'9000000002',department:'Cardiology',blood:'O+',address:'Demo City'},{id:uid(),name:'Mira Das',age:'12',gender:'Female',phone:'9000000003',department:'Paediatrics',blood:'A+',address:'Demo City'}]);write('doctors',[{id:uid(),name:'Dr. Ananya Rao',specialty:'General Medicine',phone:'9000000101',availability:'Available',hours:'Mon–Fri, 9 AM–2 PM'},{id:uid(),name:'Dr. Kabir Sen',specialty:'Cardiology',phone:'9000000102',availability:'Available',hours:'Mon–Sat, 10 AM–1 PM'},{id:uid(),name:'Dr. Nisha Roy',specialty:'Paediatrics',phone:'9000000103',availability:'On leave',hours:'Tue–Sat, 11 AM–4 PM'}]);write('beds',[{id:uid(),number:'A-101',ward:'General Ward',status:'Available',rate:'1500'},{id:uid(),number:'ICU-01',ward:'ICU',status:'Occupied',rate:'8000'},{id:uid(),number:'P-201',ward:'Private Room',status:'Available',rate:'4500'}]);write('appointments',[{id:uid(),patient:'Aanya Sharma',doctor:'Dr. Ananya Rao',date:dateToday(),time:'10:00',department:'General Medicine',status:'Scheduled',reason:'Routine consultation'}]);write('medicines',[{id:uid(),name:'Paracetamol (demo)',batch:'DEMO-001',qty:'35',reorder:'10',expiry:'2027-12-31',price:'2'},{id:uid(),name:'Antiseptic solution (demo)',batch:'DEMO-002',qty:'6',reorder:'10',expiry:'2027-06-30',price:'75'}]);write('notifications',[{id:uid(),title:'Review tomorrow appointment list',category:'Appointment',date:dateToday(),priority:'Normal',status:'Open',details:'Demo reminder'}])}
+setDefaultDates();seedDemo();renderAll();
+</script>
+</body>
+</html>

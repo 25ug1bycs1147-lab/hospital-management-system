@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CareerLens | AI Resume Analyser</title>
+<style>
+:root {
+  --bg: #fff5f5;
+  --card: #ffffff;
+  --ink: #35191e;
+  --muted: #8b6d73;
+  --purple: #c2183a;
+  --purple-dark: #8f1230;
+  --lavender: #ffe0e6;
+  --pink: #ffe8ed;
+  --mint: #e5f5ec;
+  --border: #f0d8dd;
+  --shadow: 0 14px 40px rgba(143, 18, 48, .08);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0; font-family: Inter, "Segoe UI", Arial, sans-serif;
+  color: var(--ink); background: linear-gradient(135deg, #fff8f8 0%, #fff0f2 55%, #fff8f5 100%);
+  line-height: 1.55;
+}
+header {
+  padding: 20px max(5vw, 20px); display: flex; justify-content: space-between;
+  align-items: center; gap: 16px; border-bottom: 1px solid rgba(240,216,221,.8);
+  background: rgba(255,255,255,.72); backdrop-filter: blur(12px);
+}
+.brand { display:flex; align-items:center; gap:12px; font-weight:800; font-size:1.2rem; letter-spacing:-.4px; }
+.logo { display:grid; place-items:center; width:42px; height:42px; border-radius:14px; background:var(--purple); color:white; font-size:1.3rem; }
+.brand small { display:block; font-size:.72rem; color:var(--muted); font-weight:600; letter-spacing:.2px; }
+.header-tag { color:var(--purple-dark); background:var(--lavender); padding:8px 13px; border-radius:99px; font-size:.82rem; font-weight:700; }
+main { max-width:1180px; margin:auto; padding:36px 20px 60px; }
+.hero { text-align:center; max-width:760px; margin:0 auto 30px; }
+.eyebrow { color:var(--purple-dark); text-transform:uppercase; letter-spacing:2px; font-size:.76rem; font-weight:800; }
+h1 { font-size:clamp(2rem, 4.6vw, 3.4rem); line-height:1.12; letter-spacing:-1.6px; margin:12px 0; }
+h1 span { color:var(--purple); }
+.hero p { color:var(--muted); margin:0 auto; max-width:640px; }
+.layout { display:grid; grid-template-columns:minmax(0, .9fr) minmax(0, 1.1fr); gap:22px; align-items:start; }
+.panel { background:var(--card); border:1px solid var(--border); border-radius:22px; padding:25px; box-shadow:var(--shadow); }
+.panel-heading { display:flex; align-items:center; gap:12px; margin-bottom:20px; }
+.step { width:38px; height:38px; display:grid; place-items:center; border-radius:12px; background:var(--lavender); color:var(--purple-dark); font-weight:800; }
+h2 { margin:0; font-size:1.18rem; }
+.panel-heading p { margin:3px 0 0; color:var(--muted); font-size:.86rem; }
+label { display:block; font-size:.88rem; font-weight:750; margin:16px 0 7px; }
+input, select, textarea {
+  width:100%; padding:12px 13px; border:1px solid #ead1d7; border-radius:12px;
+  font:inherit; color:var(--ink); background:#fdfcff; outline:none; transition:.2s;
+}
+input:focus, select:focus, textarea:focus { border-color:var(--purple); box-shadow:0 0 0 3px rgba(194,24,58,.12); }
+textarea { min-height:250px; resize:vertical; }
+.hint { font-size:.78rem; color:var(--muted); margin-top:6px; }
+.row { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+button { border:0; border-radius:12px; padding:13px 17px; font:inherit; font-weight:800; cursor:pointer; transition:transform .15s, background .15s; }
+button:hover { transform:translateY(-1px); }
+.primary { width:100%; margin-top:18px; background:var(--purple); color:white; box-shadow:0 8px 18px rgba(119,100,200,.22); }
+.primary:hover { background:var(--purple-dark); }
+.secondary { background:var(--lavender); color:var(--purple-dark); }
+.demo { margin-top:10px; width:100%; background:#f7f5fb; color:#625b7c; }
+.privacy { display:flex; gap:8px; align-items:flex-start; margin-top:14px; font-size:.78rem; color:var(--muted); }
+.results { min-width:0; }
+.empty-state { text-align:center; padding:60px 25px; border:1px dashed #e9bac4; border-radius:22px; background:rgba(255,255,255,.65); }
+.empty-icon { font-size:2.5rem; margin-bottom:10px; }
+.empty-state h2 { font-size:1.25rem; }
+.empty-state p { color:var(--muted); max-width:340px; margin:8px auto 0; font-size:.9rem; }
+#resultsContent { display:none; }
+.results-top { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:16px; }
+.results-top p { color:var(--muted); font-size:.83rem; margin:3px 0 0; }
+.score-card { display:flex; align-items:center; gap:18px; background:linear-gradient(120deg,#ffe1e7,#fff0f2); padding:20px; border-radius:18px; margin-bottom:15px; }
+.score-circle { flex-shrink:0; width:86px; height:86px; border-radius:50%; display:grid; place-items:center; background:white; border:7px solid #e9a0af; font-size:1.4rem; font-weight:850; color:var(--purple-dark); }
+.score-card p { margin:4px 0 0; color:#625b7c; font-size:.85rem; }
+.cards { display:grid; grid-template-columns:1fr 1fr; gap:13px; }
+.result-card { padding:18px; border:1px solid var(--border); background:white; border-radius:17px; min-width:0; }
+.result-card.full { grid-column:1/-1; }
+.card-title { display:flex; gap:9px; align-items:center; margin-bottom:11px; font-weight:850; font-size:.94rem; }
+.card-title span { width:30px; height:30px; border-radius:10px; display:grid; place-items:center; background:var(--lavender); }
+.result-card p { font-size:.87rem; color:#5e5a72; margin:0; overflow-wrap:anywhere; }
+.result-card ul { margin:0; padding-left:18px; color:#5e5a72; font-size:.86rem; }
+.result-card li { margin:6px 0; }
+.pills { display:flex; flex-wrap:wrap; gap:7px; }
+.pill { font-size:.76rem; padding:6px 9px; border-radius:99px; background:var(--mint); color:#27664d; font-weight:700; }
+.pill.missing { background:var(--pink); color:#a14369; }
+.pill.neutral { background:var(--lavender); color:var(--purple-dark); }
+.note { font-size:.76rem; color:var(--muted); margin-top:16px; }
+footer { text-align:center; color:var(--muted); font-size:.8rem; padding:0 20px 28px; }
+@media(max-width:850px) { .layout { grid-template-columns:1fr; } .cards { grid-template-columns:1fr 1fr; } }
+@media(max-width:560px) { header { padding:14px 16px; } .header-tag { display:none; } main { padding:25px 14px 40px; } .panel { padding:18px; } .cards,.row { grid-template-columns:1fr; } .result-card.full { grid-column:auto; } .score-card { align-items:flex-start; } }
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><div class="logo">✦</div><div>CareerLens<small>PLACEMENT CELL • RESUME LAB</small></div></div>
+  <div class="header-tag">✧ Your next opportunity starts here</div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="eyebrow">Your career, refined</div>
+    <h1>Make your resume <span>stand out.</span></h1>
+    <p>Get a clear summary, discover your strongest skills, explore suitable roles, and build a practical learning plan before you apply.</p>
+  </section>
+
+  <div class="layout">
+    <section class="panel">
+      <div class="panel-heading">
+        <div class="step">01</div>
+        <div><h2>Resume details</h2><p>Paste your resume content to get started.</p></div>
+      </div>
+
+      <form id="resumeForm">
+        <div class="row">
+          <div>
+            <label for="studentName">Student name (optional)</label>
+            <input id="studentName" type="text" placeholder="e.g. Alex Kumar">
+          </div>
+          <div>
+            <label for="education">Education level</label>
+            <select id="education">
+              <option value="Student">Current student</option>
+              <option value="Undergraduate">Undergraduate</option>
+              <option value="Graduate">Graduate</option>
+              <option value="Postgraduate">Postgraduate</option>
+            </select>
+          </div>
+        </div>
+
+        <label for="jobRole">Target job role</label>
+        <select id="jobRole">
+          <option value="Software Developer">Software Developer</option>
+          <option value="Data Analyst">Data Analyst</option>
+          <option value="Web Developer">Web Developer</option>
+          <option value="UI/UX Designer">UI/UX Designer</option>
+          <option value="Digital Marketing Associate">Digital Marketing Associate</option>
+          <option value="Business Analyst">Business Analyst</option>
+          <option value="Cybersecurity Analyst">Cybersecurity Analyst</option>
+          <option value="General Entry-Level Role">I'm exploring options</option>
+        </select>
+
+        <label for="resumeText">Resume content <span style="color:#a14369">*</span></label>
+        <textarea id="resumeText" required placeholder="Paste your resume here — include your education, skills, projects, internships, work experience, certifications, and achievements."></textarea>
+        <div class="hint">Tip: Include project details and measurable achievements where possible.</div>
+
+        <button class="primary" type="submit">✦ Analyse my resume</button>
+        <button class="demo" type="button" id="demoBtn">Try with sample resume</button>
+        <div class="privacy">🔒 <span>This demo analyses text locally in your browser. It does not upload or save your resume to a server.</span></div>
+      </form>
+    </section>
+
+    <section class="results" aria-live="polite">
+      <div class="empty-state" id="emptyState">
+        <div class="empty-icon">📄✨</div>
+        <h2>Your career insights will appear here</h2>
+        <p>Add your resume and select a target role. Your analysis will be organised into six easy-to-follow sections.</p>
+      </div>
+
+      <div id="resultsContent">
+        <div class="results-top">
+          <div><h2>Resume insights</h2><p id="resultSubtitle">Your personalised feedback</p></div>
+          <button class="secondary" type="button" id="printBtn">Print report</button>
+        </div>
+        <div class="score-card">
+          <div class="score-circle"><span id="score">0</span></div>
+          <div><h2 id="scoreHeading">Your resume snapshot</h2><p id="scoreText"></p></div>
+        </div>
+        <div class="cards">
+          <article class="result-card full">
+            <div class="card-title"><span>📝</span> 1. Resume summary</div>
+            <p id="summary"></p>
+          </article>
+          <article class="result-card">
+            <div class="card-title"><span>💡</span> 2. Skills analysis</div>
+            <p id="skillsIntro"></p><div class="pills" id="skillsPills" style="margin-top:10px"></div>
+          </article>
+          <article class="result-card">
+            <div class="card-title"><span>🧭</span> 3. Job recommendations</div>
+            <ul id="jobs"></ul>
+          </article>
+          <article class="result-card">
+            <div class="card-title"><span>🔎</span> 4. Missing skills</div>
+            <p style="margin-bottom:10px">Skills worth developing for your selected role:</p>
+            <div class="pills" id="missingPills"></div>
+            <p id="missingNote" style="margin-top:10px"></p>
+          </article>
+          <article class="result-card">
+            <div class="card-title"><span>📚</span> 5. Learning suggestions</div>
+            <ul id="learning"></ul>
+          </article>
+          <article class="result-card full">
+            <div class="card-title"><span>🪄</span> 6. Resume improvement suggestions</div>
+            <ul id="improvements"></ul>
+          </article>
+        </div>
+        <p class="note">This is an educational, rule-based demo—not a validated hiring score or a real AI model. Suggestions may miss context. Review them before making career decisions.</p>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer>Made for students • College Placement Cell • CareerLens Resume Lab</footer>
+
+<script>
+const skillLibrary = [
+  "HTML", "CSS", "JavaScript", "Python", "Java", "C++", "SQL", "Excel",
+  "Power BI", "Tableau", "Machine Learning", "Data Analysis", "React",
+  "Node.js", "Git", "GitHub", "Communication", "Teamwork", "Problem Solving",
+  "Leadership", "Figma", "UI/UX", "SEO", "Digital Marketing", "Project Management",
+  "Linux", "Networking", "Cybersecurity", "REST API", "MongoDB", "C", "PHP",
+  "Cloud Computing", "AWS", "Data Visualization", "Critical Thinking"
+];
+
+const roleSkills = {
+  "Software Developer": ["JavaScript", "Python", "Java", "SQL", "Git", "Problem Solving", "REST API", "Data Structures"],
+  "Data Analyst": ["SQL", "Excel", "Python", "Power BI", "Tableau", "Data Analysis", "Data Visualization", "Statistics"],
+  "Web Developer": ["HTML", "CSS", "JavaScript", "React", "Git", "REST API", "Responsive Design"],
+  "UI/UX Designer": ["Figma", "UI/UX", "User Research", "Prototyping", "Wireframing", "Communication"],
+  "Digital Marketing Associate": ["SEO", "Digital Marketing", "Analytics", "Content Strategy", "Communication", "Social Media"],
+  "Business Analyst": ["Excel", "SQL", "Communication", "Problem Solving", "Data Analysis", "Project Management"],
+  "Cybersecurity Analyst": ["Linux", "Networking", "Cybersecurity", "Python", "Cloud Computing", "Risk Analysis"],
+  "General Entry-Level Role": ["Communication", "Teamwork", "Problem Solving", "Excel", "Project Management"]
+};
+
+const learningMap = {
+  "Software Developer": [
+    "Practise data structures and algorithms with small daily coding problems.",
+    "Build a project using an API, version control, and clear documentation.",
+    "Learn testing fundamentals and how to explain your code decisions."
+  ],
+  "Data Analyst": [
+    "Practise SQL joins, aggregations, and queries on a public dataset.",
+    "Create a dashboard in Power BI or Tableau and explain the insights.",
+    "Refresh statistics and spreadsheet skills; publish a short case study."
+  ],
+  "Web Developer": [
+    "Build a responsive website using HTML, CSS, and JavaScript.",
+    "Learn a frontend framework such as React and practise consuming APIs.",
+    "Deploy a project and keep the code and README organised on GitHub."
+  ],
+  "UI/UX Designer": [
+    "Learn Figma components, auto layout, and interactive prototyping.",
+    "Complete a small user-research exercise and explain your design choices.",
+    "Create a portfolio case study showing the problem, process, and outcome."
+  ],
+  "Digital Marketing Associate": [
+    "Learn SEO basics, keyword research, and content planning.",
+    "Practise campaign reporting with analytics and spreadsheet tools.",
+    "Build a sample campaign plan with audience, goals, and success metrics."
+  ],
+  "Business Analyst": [
+    "Practise Excel analysis and SQL on a realistic business dataset.",
+    "Learn requirements gathering, process mapping, and user stories.",
+    "Write a short case study with a problem, evidence, and recommendation."
+  ],
+  "Cybersecurity Analyst": [
+    "Study networking, Linux command-line basics, and security fundamentals.",
+    "Practise in legal beginner labs and document what you learn.",
+    "Learn incident reporting and basic log analysis."
+  ],
+  "General Entry-Level Role": [
+    "Strengthen spreadsheet, communication, and presentation skills.",
+    "Complete a small project that demonstrates initiative and problem-solving.",
+    "Practise explaining your contribution and results clearly in interviews."
+  ]
+};
+
+const $ = id => document.getElementById(id);
+
+function addPill(container, text, type = "") {
+  const el = document.createElement("span");
+  el.className = "pill " + type;
+  el.textContent = text;
+  container.appendChild(el);
+}
+
+function addListItems(container, items) {
+  container.replaceChildren();
+  items.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    container.appendChild(li);
+  });
+}
+
+function analyseResume(text, role, name, education) {
+  const lower = text.toLowerCase();
+  const detectedSkills = skillLibrary.filter(skill => {
+    const escaped = skill.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    return new RegExp("(^|[^a-z0-9+#])" + escaped + "([^a-z0-9+#]|$)", "i").test(text);
+  });
+  const targetSkills = roleSkills[role] || roleSkills["General Entry-Level Role"];
+  const missing = targetSkills.filter(skill =>
+    !lower.includes(skill.toLowerCase())
+  ).slice(0, 6);
+
+  const hasEducation = /education|university|college|bachelor|b\.?tech|b\.?sc|degree|cgpa|gpa|graduate/i.test(text);
+  const hasProjects = /project|developed|built|created|implemented|designed/i.test(text);
+  const hasExperience = /experience|internship|intern|employment|worked|volunteer/i.test(text);
+  const hasAchievements = /achievement|award|certification|certified|published|won|led|increased|improved|%/i.test(text);
+  const hasContact = /@|linkedin|github|phone|mobile|portfolio/i.test(text);
+  const hasMetrics = /\b\d+(\.\d+)?\s*(%|users|clients|projects|hours|days|weeks|months|years|₹|\$)\b/i.test(text);
+  const sections = [hasEducation, hasProjects, hasExperience, hasAchievements, hasContact];
+  const lengthScore = text.trim().length >= 500 ? 15 : text.trim().length >= 250 ? 10 : 5;
+  const score = Math.min(100, Math.round(
+    20 + sections.filter(Boolean).length * 10 +
+    Math.min(detectedSkills.length, 8) * 4 + lengthScore +
+    (hasMetrics ? 5 : 0)
+  ));
+
+  const summaryBits = [];
+  if (education) summaryBits.push(education.toLowerCase());
+  if (hasEducation) summaryBits.push("with an education background represented in the resume");
+  if (detectedSkills.length) summaryBits.push("skills including " + detectedSkills.slice(0, 5).join(", "));
+  if (hasProjects) summaryBits.push("project or practical work exposure");
+  if (hasExperience) summaryBits.push("experience or internship-related exposure");
+  let summary = (name ? name + " is a " : "The candidate is a ") +
+    (summaryBits.length ? summaryBits.join(", ") : "candidate preparing to enter the job market") +
+    ". For the " + role + " path, the resume can be strengthened by highlighting relevant projects, measurable outcomes, and evidence of role-specific skills.";
+  if (summary.length > 680) summary = summary.slice(0, 675) + "…";
+
+  let jobs;
+  if (role === "General Entry-Level Role") {
+    jobs = ["Graduate Trainee", "Operations or Support Associate", "Junior Project Coordinator"];
+    if (detectedSkills.some(s => ["Python", "SQL", "Excel", "Power BI", "Data Analysis"].includes(s))) jobs.unshift("Junior Data / Reporting Assistant");
+    if (detectedSkills.some(s => ["HTML", "CSS", "JavaScript", "React"].includes(s))) jobs.unshift("Junior Web Developer");
+  } else {
+    const related = {
+      "Software Developer": ["Junior Software Developer", "Graduate Engineer Trainee", "QA / Test Automation Trainee"],
+      "Data Analyst": ["Junior Data Analyst", "Reporting Analyst Trainee", "Business Intelligence Intern"],
+      "Web Developer": ["Junior Front-End Developer", "Web Development Intern", "Website Support Associate"],
+      "UI/UX Designer": ["Junior UI/UX Designer", "Product Design Intern", "Visual Design Assistant"],
+      "Digital Marketing Associate": ["Digital Marketing Trainee", "SEO Associate", "Content Marketing Intern"],
+      "Business Analyst": ["Business Analyst Intern", "Junior Operations Analyst", "Reporting Analyst Trainee"],
+      "Cybersecurity Analyst": ["Security Analyst Trainee", "SOC Analyst Intern", "IT Support Associate"]
+    };
+    jobs = related[role] || ["Graduate Trainee", "Entry-Level Associate"];
+  }
+
+  const improvements = [];
+  if (!hasContact) improvements.push("Add professional contact details and relevant LinkedIn, GitHub, or portfolio links.");
+  if (!hasEducation) improvements.push("Add your education, institution, graduation year, and relevant coursework or grades if appropriate.");
+  if (!hasProjects) improvements.push("Include 1–3 relevant projects. Explain the problem, your contribution, tools used, and outcome.");
+  if (!hasExperience) improvements.push("If you have limited work experience, include internships, volunteering, coursework, or practical projects.");
+  if (!detectedSkills.length) improvements.push("Add a clearly labelled Skills section with specific tools and technologies you can confidently use.");
+  if (!hasMetrics) improvements.push("Add measurable results where truthful—for example, users supported, time saved, project size, or performance improved.");
+  improvements.push("Tailor the summary and skills section to the job description; use relevant keywords naturally and honestly.");
+  improvements.push("Use consistent headings, concise bullet points, readable formatting, and check spelling and grammar.");
+  if (text.trim().length < 350) improvements.push("Add more detail about responsibilities, project decisions, and results; avoid vague one-line descriptions.");
+
+  return { detectedSkills, missing, score, summary, jobs: [...new Set(jobs)].slice(0, 4), improvements, hasMetrics, hasProjects, hasExperience };
+}
+
+$("resumeForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const text = $("resumeText").value.trim();
+  if (!text) {
+    $("resumeText").focus();
+    alert("Please paste your resume content before analysing.");
+    return;
+  }
+
+  const role = $("jobRole").value;
+  const name = $("studentName").value.trim();
+  const education = $("education").value;
+  const data = analyseResume(text, role, name, education);
+
+  $("emptyState").style.display = "none";
+  $("resultsContent").style.display = "block";
+  $("resultSubtitle").textContent = "Target role: " + role;
+  $("score").textContent = data.score;
+  $("scoreHeading").textContent = data.score >= 75 ? "A promising starting point!" : data.score >= 55 ? "Good foundation to build on" : "Room to strengthen your resume";
+  $("scoreText").textContent = "Indicative completeness score. It is not a hiring prediction; use the suggestions below to improve your resume.";
+  $("summary").textContent = data.summary;
+
+  $("skillsIntro").textContent = data.detectedSkills.length
+    ? "Recognised skills in your resume:"
+    : "No skills from this demo's keyword list were recognised. Add a specific skills section if relevant.";
+  $("skillsPills").replaceChildren();
+  data.detectedSkills.forEach(skill => addPill($("skillsPills"), skill));
+  if (!data.detectedSkills.length) addPill($("skillsPills"), "Add relevant skills", "missing");
+
+  addListItems($("jobs"), data.jobs);
+  $("missingPills").replaceChildren();
+  if (data.missing.length) data.missing.forEach(skill => addPill($("missingPills"), skill, "missing"));
+  else addPill($("missingPills"), "No listed gaps detected", "");
+  $("missingNote").textContent = data.missing.length
+    ? "These are role-related keywords not detected in the text—not proof that you lack the skills. Add them only if you genuinely have them."
+    : "The target skills in this demo were detected. Compare your resume against each job description for more precise gaps.";
+  addListItems($("learning"), learningMap[role] || learningMap["General Entry-Level Role"]);
+  addListItems($("improvements"), data.improvements);
+
+  $("resultsContent").scrollIntoView({ behavior: "smooth", block: "start" });
+});
+
+$("demoBtn").addEventListener("click", () => {
+  $("studentName").value = "Alex Kumar";
+  $("education").value = "Undergraduate";
+  $("jobRole").value = "Web Developer";
+  $("resumeText").value = `EDUCATION
+B.Tech Computer Science, Example University (2023–2027)
+Relevant coursework: programming, databases, web technologies.
+
+SKILLS
+HTML, CSS, JavaScript, Python, Git, GitHub, Communication, Teamwork, Problem Solving.
+
+PROJECTS
+Student Portal Website — Developed a responsive student portal using HTML, CSS and JavaScript. Created pages for notices, student resources and contact information.
+Weather Dashboard — Built a dashboard that displays weather information from a public API and presents results in a simple interface.
+
+EXPERIENCE
+Web Development Intern — Assisted with website updates, tested page layouts, and collaborated with a small student team.
+
+CERTIFICATIONS & ACTIVITIES
+Completed an introductory web development course. Participated in a college coding event and collaborated on a group project.`;
+  $("resumeText").focus();
+});
+
+$("printBtn").addEventListener("click", () => window.print());
+</script>
+</body>
+</html>
